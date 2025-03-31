@@ -35,7 +35,7 @@ The purpose of this set of rules is that the robot accepts the input string if i
 '''
 
 def calculate(input, rules):
-    # TODO
+    pass
 
 if __name__ == "__main__":
     rules = []
