@@ -35,7 +35,19 @@ The purpose of this set of rules is that the robot accepts the input string if i
 '''
 
 def calculate(input, rules):
-    pass
+    state = 1
+    counter = 0
+    ptr = 0
+    parsedInput = "L" + input + "R"
+
+    while counter < 1000:
+        if ptr < 0 or ptr >= len(parsedInput): 
+            return False 
+        
+
+
+    return False
+
 
 if __name__ == "__main__":
     rules = []
