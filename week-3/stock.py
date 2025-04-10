@@ -8,12 +8,21 @@ In a file stock.py, implement the function find_profits that takes a list of pri
 You must implement an efficient solution with a time complexity O(n). 
 For example, you cannot afford to go through all possible buying days for each selling day. 
 Your solution should determine each profit more efficiently.
-In the last test case of the following code template, the stock prices are [1,2,\dots,10^5]. 
+In the last test case of the following code template, the stock prices are [1,2,...,10^5]. 
 Your function should finish quickly in this test case too.
 '''
 
 def find_profits(prices):
-    pass
+    ptr = 0
+    res = [0 for _ in prices]
+
+    for i in range(1, len(prices)):
+        if prices[i] < prices[ptr]:
+            ptr = i
+        else:
+            res[i] = prices[i] - prices[ptr]
+
+    return res
 
 if __name__ == "__main__":
     print(find_profits([1, 2, 3, 4])) # [0, 1, 2, 3]
