@@ -35,15 +35,41 @@ The purpose of this set of rules is that the robot accepts the input string if i
 '''
 
 def calculate(input, rules):
+    # map structure = { (symbol, state): (new_symbol, new_state, action) }
+
     state = 1
     counter = 0
     ptr = 0
     parsedInput = "L" + input + "R"
+    hashMap = {}
+
+    for i in rules:
+        hashMap[(i[0], i[1])] = (i[2], i[3], i[4])
 
     while counter < 1000:
         if ptr < 0 or ptr >= len(parsedInput): 
             return False 
         
+        curr = (parsedInput[ptr], state)
+        
+        if curr not in hashMap:
+            return False
+        
+        rule = hashMap[curr]
+
+        parsedInput = parsedInput[:ptr] + rule[0] + parsedInput[ptr + 1:]
+        state = rule[1]
+
+        if rule[2] == "LEFT":
+            ptr -= 1
+        elif rule[2] == "RIGHT":
+            ptr += 1
+        elif rule[2] == "ACCEPT":
+            return True
+        elif rule[2] == "REJECT":
+            return False
+        
+        counter += 1
 
 
     return False
@@ -72,7 +98,7 @@ if __name__ == "__main__":
     rules.append(("X", 5, "X", 5, "RIGHT"))
     rules.append(("X", 6, "X", 6, "RIGHT"))
     rules.append(("X", 7, "X", 7, "RIGHT"))
-
+    
     rules.append(("R", 2, "R", 2, "ACCEPT"))
     rules.append(("R", 4, "R", 4, "REJECT"))
     rules.append(("R", 6, "R", 6, "REJECT"))
