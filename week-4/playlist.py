@@ -10,13 +10,17 @@ The last two test cases in the code template are long lists and the function sho
 '''
 
 def count_parts(songs):
-    res = len(songs)
-
+    res = 0
+    left = 0
+    seen = {}
     
-
-
+    for right in range(len(songs)):
+        if songs[right] in seen and seen[songs[right]] >= left:
+            left = seen[songs[right]] + 1
+        seen[songs[right]] = right
+        res += right - left + 1
     
-    pass
+    return res
 
 if __name__ == "__main__":
     print(count_parts([1, 1, 1, 1])) # 4
