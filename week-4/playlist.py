@@ -10,6 +10,12 @@ The last two test cases in the code template are long lists and the function sho
 '''
 
 def count_parts(songs):
+    res = len(songs)
+
+    
+
+
+    
     pass
 
 if __name__ == "__main__":
