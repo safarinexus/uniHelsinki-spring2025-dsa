@@ -13,8 +13,8 @@ The function will be tested in various situations, where the size of the grid is
 
 def analyze_route(grid):
     visited  = set()
-    directions = [(0, -1), (1, 0), (0, 1), (-1, 0)] # Up, Right, Down, Left
-    direction = 0 # Start moving up
+    directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+    direction = 0 
     rows = len(grid)
     cols = len(grid[0])
     currX, currY = -1 , -1
@@ -23,11 +23,13 @@ def analyze_route(grid):
         for col in range(cols):
             if grid[row][col] == 'R':
                 currX, currY = row, col
+                visited.add((currX, currY))
 
     move = True
+    repeat = 0
+    dirStuck = 0
 
-    while move: 
-        print(visited)
+    while move and repeat != len(visited) and dirStuck < 4: 
         currX += directions[direction][0]
         currY += directions[direction][1]
 
@@ -37,13 +39,20 @@ def analyze_route(grid):
         elif grid[currX][currY] == '#':
             currX -= directions[direction][0]
             currY -= directions[direction][1]
+            dirStuck += 1
             if direction < 3:
                 direction += 1
             else: 
                 direction = 0
 
         else: 
-            visited.add((currX, currY))
+            dirStuck = 0
+            if (currX, currY) in visited:
+                repeat += 1
+            else:
+                visited.add((currX, currY))
+
+    return (len(visited), False)
 
 if __name__ == "__main__":
     grid1 = [".#......",
