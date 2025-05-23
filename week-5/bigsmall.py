@@ -10,7 +10,26 @@ The function should finish immediately in the last test case of the code templat
 '''
 
 def count_pairs(numbers):
-    pass
+    n = len(numbers)
+    if n < 2:
+        return 0
+
+    nums = sorted(numbers)
+
+    pairs = 0
+
+    j = n // 2
+    i = 0
+
+    while i < n // 2 and j < n:
+        if 2 * nums[i] <= nums[j]:
+            pairs += 1
+            i += 1 
+            j += 1 
+        else:
+            j += 1
+    
+    return pairs
 
 if __name__ == "__main__":
     print(count_pairs([1])) # 0
@@ -19,6 +38,7 @@ if __name__ == "__main__":
     print(count_pairs([1, 1, 1, 1])) # 0
     print(count_pairs([10**9, 1, 1, 1])) # 1
     print(count_pairs([4, 5, 1, 4, 7, 8])) # 2
+    print(count_pairs([1, 4, 5, 7, 8])) # 2
     print(count_pairs([1, 2, 3, 2, 4, 6])) # 3
 
     numbers = [(x * 999983) % 10**6 + 1 for x in range(10**5)]
