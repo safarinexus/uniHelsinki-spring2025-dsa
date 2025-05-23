@@ -14,13 +14,15 @@ You can test the efficiency of your solution with the following code. In this ca
 
 class MaxList:
     def __init__(self):
-        pass
+        self.list = []
+        self.largest = 0
 
     def append(self, number):
-        pass
+        self.list.append(number)
+        self.largest = max(self.largest, number)
 
     def max(self):
-        pass
+        return self.largest
 
 if __name__ == "__main__":
     numbers = MaxList()
