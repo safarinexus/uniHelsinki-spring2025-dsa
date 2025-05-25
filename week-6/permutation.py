@@ -1,5 +1,5 @@
 '''
-A list is a permutation if it contains the numbers 1,2,\dots,n exactly once each. For example, the lists [1], [2,1] and [3,1,2,4] are permutations.
+A list is a permutation if it contains the numbers 1,2,...,n exactly once each. For example, the lists [1], [2,1] and [3,1,2,4] are permutations.
 In a file permutation.py, implement the class PermutationTracker with the following methods:
 
 append(number): add number to the end of the list
@@ -21,13 +21,29 @@ You can test the efficiency of your solution using the following code. In this c
 
 class PermutationTracker:
     def __init__(self):
-        pass
-
+        self.numbers = set()
+        self.sum = 0        
+        self.max_number = 0 
+        self.length = 0     
+    
     def append(self, number):
-        pass
+        self.length += 1
+    
+        if number not in self.numbers:
+            self.numbers.add(number)
+            self.sum += number
+            self.max_number = max(self.max_number, number)
+    
+    def check(self):    
+        if self.max_number != self.length:
+            return False
+            
+        if len(self.numbers) != self.length:
+            return False
+        
+        expected_sum = (self.length * (self.length + 1)) // 2
+        return self.sum == expected_sum
 
-    def check(self):
-        pass
 
 if __name__ == "__main__":
     tracker = PermutationTracker()
