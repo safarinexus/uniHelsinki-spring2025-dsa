@@ -1,5 +1,5 @@
 '''
-Your task is to implement a class that maintains a list of numbers  and has a method that efficiently computes the sum of the numbers in a given sublist.
+Your task is to implement a class that maintains a list of numbers and has a method that efficiently computes the sum of the numbers in a given sublist.
 In a file sumlist.py, implement the class SumList with the following methods:
 
 append(number): add number to the end of the list
@@ -25,13 +25,20 @@ You can test the efficiency of your solution with the following code. In this ca
 
 class SumList:
     def __init__(self):
-        pass
+        self.sums = {}
+        self.index = 0
+        self.curr = 0
 
     def append(self, number):
-        pass
+        self.curr += number
+        self.sums[self.index] = self.curr
+        self.index += 1
 
     def sum(self, a, b):
-        pass
+        if a == 0: 
+            return self.sums[b]
+        else:
+            return abs(self.sums[b] - self.sums[a - 1])
 
 if __name__ == "__main__":
     numbers = SumList()
