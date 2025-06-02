@@ -16,7 +16,13 @@ class Node:
             return f"Node({self.value}, {self.children})"
 
 def count_leaves(node):
-    pass
+    if not node.children:
+        return 1
+    else:
+        count = 0
+        for i in node.children:
+            count += count_leaves(i)
+        return count
 
 if __name__ == "__main__":
     tree1 = Node(1, [Node(4, [Node(3), Node(7)]),
