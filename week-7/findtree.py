@@ -48,7 +48,7 @@ def find_tree(grid):
                     ptr = ptr.children[0]
                     curr = ''
             elif grid[row][column] == "/":
-                
+                continue
             else:
                 if curr:
                     ptr.children.append(int(curr))

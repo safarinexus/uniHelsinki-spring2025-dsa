@@ -8,7 +8,34 @@ The function should return the list of degrees of the nodes.
 '''
 
 def find_degrees(nodes, edges):
-    pass
+    res = [0 for _ in nodes]
+
+    if len(edges) == 0:
+        return res
+    
+    connections = {}
+    
+    for i in nodes:
+        for j in edges:
+            if j[0] == i:
+                if i not in connections:
+                    connections[i] = set()
+                connections[i].add(j[1])
+            
+            if j[1] == i:
+                if i not in connections:
+                    connections[i] = set()
+                connections[i].add(j[0])
+
+                    
+    itr = 0
+    for key in connections:
+        res[itr] = len(connections[key])
+        itr += 1
+
+    return sorted(res)
+
+    
 
 if __name__ == "__main__":
     nodes = [1, 2, 3, 4, 5]
