@@ -34,26 +34,7 @@ class Node:
             return f"Node({self.value}, {self.children})"
 
 def find_tree(grid):
-    rows = len(grid)
-    columns = len(grid[0])
-    ptr = Node(-1)
-
-    for row in range(rows):
-        curr = ''
-        for column in range(columns):
-            if grid[row][column].isnumeric():
-                curr += grid[row][column]
-                if column == columns - 1:
-                    ptr.children.append(int(curr))
-                    ptr = ptr.children[0]
-                    curr = ''
-            elif grid[row][column] == "/":
-                continue
-            else:
-                if curr:
-                    ptr.children.append(int(curr))
-                    ptr = ptr.children[0]
-                    curr = ''
+    pass
 
 if __name__ == "__main__":
     grid = [r"...........",
