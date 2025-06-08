@@ -11,7 +11,11 @@ The function should be efficient in all cases.
 '''
 
 def find_codes(pattern):
-    pass
+    res = []
+
+    
+
+    return res
 
 if __name__ == "__main__":
     codes = find_codes("24?5")
