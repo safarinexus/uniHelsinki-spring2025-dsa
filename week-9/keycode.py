@@ -9,12 +9,18 @@ In a file keycode.py, implement the function find_codes with the key code string
 The function should return a list that contains all the matching codes in order from the smallest to the largest.
 The function should be efficient in all cases.
 '''
+import re
+import itertools
 
 def find_codes(pattern):
+    codes = itertools.product("123456789", repeat=4)
+    regex = "^" + pattern.replace("?", ".") + "$"
+
     res = []
-
-    
-
+    for code in codes:
+        code = "".join(code)
+        if re.match(regex, code) and len(code) == len(set(code)):
+            res.append(code)
     return res
 
 if __name__ == "__main__":
