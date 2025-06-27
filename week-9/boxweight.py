@@ -11,22 +11,30 @@ The function should return the smallest number of boxes needed. If no packing is
 You may assume that the number of products is in the range 1...8. The function should be efficient in all such cases.
 '''
 
+import itertools
+
 def min_count(weights, max_weight):
-    res = 0
-    visited = set()
+    if len(weights) == 0:
+        return 0
+    if max(weights) > max_weight:
+        return -1
 
-    for i in range(len(weights) - 1, 0, -1):
-        if weights[i] > max_weight:
-            return -1
+    min_result = len(weights)
 
-        if (max_weight - weights[i]) in weights:
-            for idx, j in enumerate(weights):
-                if j == max_weight - weights[i] and idx not in visited:
-                    res += 1
-                    visited.add(i)
-                    visited.add(idx)
-        
-    return res
+    for order in itertools.permutations(weights):
+        box_count = 0
+        box_weight = max_weight
+
+        for weight in order:
+            if box_weight + weight > max_weight:
+                box_count += 1
+                box_weight = weight
+            else:
+                box_weight += weight
+
+        min_result = min(min_result, box_count)
+
+    return min_result
             
 
 
