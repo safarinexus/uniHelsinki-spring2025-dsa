@@ -7,7 +7,18 @@ Implement the function efficiently using dynamic programming similarly to the ex
 '''
 
 def can_create(coins, target):
-    pass
+    result = {}
+    
+    result[0] = 1
+    for s in range(1, target + 1):
+        result[s] = 0
+        for coin in coins:
+            if s - coin >= 0:
+                result[s] += result[s - coin]
+                
+    if result[target]: return True 
+    
+    return False
 
 if __name__ == "__main__":
     print(can_create([1, 2, 5], 13)) # True
