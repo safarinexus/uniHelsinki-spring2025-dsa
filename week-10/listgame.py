@@ -18,7 +18,22 @@ The function should be efficient when the length of the list is in the range 1 .
 '''
 
 def first_wins(numbers):
-    pass
+    first_sum = max_sum(numbers)
+    second_sum = sum(numbers) - first_sum
+    return first_sum > second_sum
+
+def max_sum(numbers, results={}):
+    if len(numbers) == 1:
+        return numbers[0]
+
+    key = tuple(numbers)
+
+    if key not in results:
+        sum_with_first = sum(numbers) - max_sum(numbers[1:])
+        sum_with_last = sum(numbers) - max_sum(numbers[:-1])
+        results[key] = max(sum_with_first, sum_with_last)
+
+    return results[key]
 
 if __name__ == "__main__":
     print(first_wins([2, 1, 3])) # True
