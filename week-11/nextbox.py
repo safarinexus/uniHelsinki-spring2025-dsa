@@ -11,52 +11,39 @@ The size of the product 5 is 1. You choose the box of size 4.
 In a file nextbox.py, implement the function find_boxes that takes a list of box sizes and a list of products sizes in order of processing as parameters. The function should return a list of the box sizes chosen for each products. The box size should be -1 if no box was found for the product.
 The function should be efficient even if both lists are long. The last function call in the code template tests this situation.
 '''
-class Node:
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
-
-class TreeSet:
-    def __init__(self):
-        self.root = None
-
-    def add(self, value):
-        if not self.root:
-            self.root = Node(value)
-            return
-
-        node = self.root
-        while True:
-            if node.value == value:
-                return
-            if node.value > value:
-                if not node.left:
-                    node.left = Node(value)
-                    return
-                node = node.left
-            else:
-                if not node.right:
-                    node.right = Node(value)
-                    return
-                node = node.right
 
 def find_boxes(boxes, products):
-    avail_boxes = TreeSet()
-    for i in enumerate(boxes):
-        avail_boxes.add((i[1], i[0]))
-
+    import bisect
+    from collections import defaultdict
+    
+    box_counts = defaultdict(int)
+    for box in boxes:
+        box_counts[box] += 1
+    
+    available_sizes = sorted(box_counts.keys())
+    
     result = []
-    for product in products:
-        box = avail_boxes.next((product, 0))
-        if box == None:
-            result.append(0)
-        else:
-            avail_boxes.remove(box)
-            result.append(box[0])
-            
-    return result  
-
+    
+    for product_size in products:
+        idx = bisect.bisect_left(available_sizes, product_size)
+        
+        box_found = -1
+        
+        while idx < len(available_sizes):
+            box_size = available_sizes[idx]
+            if box_counts[box_size] > 0:
+                box_found = box_size
+                box_counts[box_size] -= 1
+                
+                break
+            idx += 1
+        
+        if len(result) % 1000 == 0:
+            available_sizes = [size for size in available_sizes if box_counts[size] > 0]
+        
+        result.append(box_found)
+    
+    return result
 
 if __name__ == "__main__":
     print(find_boxes([4, 4, 6, 8], [5, 5, 4, 6, 1]))
